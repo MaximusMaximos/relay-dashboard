@@ -54,15 +54,11 @@ export default function ModelsGrid({
                   {model.previewType === 'video' ? (
                     <video
                       src={model.preview}
+                      autoPlay
                       loop
                       muted
                       playsInline
                       className="w-full h-full object-cover"
-                      onMouseEnter={(e) => e.currentTarget.play()}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.pause();
-                        e.currentTarget.currentTime = 0;
-                      }}
                     />
                   ) : model.previewType === 'image' ? (
                     <img
