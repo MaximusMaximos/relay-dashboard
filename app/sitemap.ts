@@ -1,33 +1,44 @@
-import { MetadataRoute } from "next";
+import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://ogpunetwork.com";
+  const base = 'https://relay-dashboard.vercel.app'; // Update with your actual domain
 
   return [
     {
-      url: `${base}/`,
+      url: base,
       lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 1.0
-      import { Model, FormData, GenerationHistoryItem, PreviewOutput } from './types';
+      changeFrequency: 'daily',
+      priority: 1.0,
     },
     {
-      url: `${base}/enterprisehome`,
+      url: `${base}/Creditspage`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
     {
-      url: `${base}/getstarted`,         // ← ADD THIS
+      url: `${base}/Profilespage`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
     {
-      url: `${base}/pilot-confirmed`,
+      url: `${base}/Keyspage`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.3                // low since it's not a landing page
-    }
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${base}/Usagepage`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${base}/Contactpage`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
   ];
 }
