@@ -102,20 +102,20 @@ export default function KeysPage() {
     <div className="min-h-screen bg-gradient-to-br from-[#0c101c] to-[#111727] text-white">
       <Navbar balance="0" />
       
-      <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between mb-8"
+          className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8"
         >
           <div>
-            <h1 className="text-4xl font-bold mb-2">API Keys</h1>
-            <p className="text-gray-400">Manage your API keys for programmatic access</p>
+            <h1 className="text-2xl md:text-4xl font-bold mb-2">API Keys</h1>
+            <p className="text-sm md:text-base text-gray-400">Manage your API keys for programmatic access</p>
           </div>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-6 py-3 bg-gradient-to-r from-[#ffbc36] to-[#ff9d36] hover:from-[#ff9d36] hover:to-[#ffbc36] text-black font-medium rounded-xl transition-all flex items-center gap-2"
+            className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-[#ffbc36] to-[#ff9d36] hover:from-[#ff9d36] hover:to-[#ffbc36] text-black font-medium rounded-xl transition-all flex items-center justify-center gap-2"
           >
             <Plus className="w-5 h-5" />
             Create Key
@@ -123,7 +123,7 @@ export default function KeysPage() {
         </motion.div>
 
         {/* Info Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -201,12 +201,12 @@ export default function KeysPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 + index * 0.1 }}
-                  className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all"
+                  className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-4 md:p-6 hover:border-white/20 transition-all"
                 >
-                  <div className="flex items-start justify-between mb-4">
+                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-3 mb-4">
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold mb-1">{apiKey.name}</h3>
-                      <div className="flex items-center gap-4 text-sm text-gray-400">
+                      <h3 className="text-base md:text-lg font-semibold mb-1">{apiKey.name}</h3>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs md:text-sm text-gray-400">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
                           Created {apiKey.createdAt}
@@ -217,18 +217,18 @@ export default function KeysPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-xs md:text-sm text-gray-500">
                       Last used: {apiKey.lastUsed}
                     </div>
                   </div>
 
                   {/* API Key Display */}
-                  <div className="bg-[#0a0e1a] rounded-xl p-4 mb-4">
-                    <div className="flex items-center gap-3">
-                      <code className="flex-1 font-mono text-sm text-gray-300 break-all">
+                  <div className="bg-[#0a0e1a] rounded-xl p-3 md:p-4 mb-4">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <code className="flex-1 font-mono text-xs md:text-sm text-gray-300 break-all overflow-hidden">
                         {revealedKeys.has(apiKey.id) ? apiKey.key : maskKey(apiKey.key)}
                       </code>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
                         <button
                           onClick={() => toggleRevealKey(apiKey.id)}
                           className="p-2 bg-white/5 hover:bg-white/10 rounded-lg transition-all"
@@ -304,7 +304,7 @@ export default function KeysPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-6"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 md:p-6"
             onClick={() => !isCreating && setShowCreateModal(false)}
           >
             <motion.div
@@ -312,20 +312,20 @@ export default function KeysPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-8 max-w-md w-full"
+              className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-6 md:p-8 max-w-md w-full"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-[#ffbc36]/10 rounded-xl flex items-center justify-center">
-                  <Key className="w-6 h-6 text-[#ffbc36]" />
+              <div className="flex items-center gap-3 mb-4 md:mb-6">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-[#ffbc36]/10 rounded-xl flex items-center justify-center">
+                  <Key className="w-5 h-5 md:w-6 md:h-6 text-[#ffbc36]" />
                 </div>
-                <h2 className="text-2xl font-bold">Create API Key</h2>
+                <h2 className="text-xl md:text-2xl font-bold">Create API Key</h2>
               </div>
 
-              <p className="text-gray-400 text-sm mb-6">
+              <p className="text-gray-400 text-sm mb-4 md:mb-6">
                 Give your API key a name to help you identify it later. This key will have full access to your account.
               </p>
 
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <label className="block text-sm font-medium mb-2">Key Name</label>
                 <input
                   type="text"
@@ -338,18 +338,18 @@ export default function KeysPage() {
                 />
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row items-center gap-3">
                 <button
                   onClick={() => setShowCreateModal(false)}
                   disabled={isCreating}
-                  className="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl transition-all disabled:opacity-50"
+                  className="w-full sm:flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl transition-all disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleCreateKey}
                   disabled={!newKeyName.trim() || isCreating}
-                  className="flex-1 px-4 py-3 bg-gradient-to-r from-[#ffbc36] to-[#ff9d36] hover:from-[#ff9d36] hover:to-[#ffbc36] text-black font-medium rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full sm:flex-1 px-4 py-3 bg-gradient-to-r from-[#ffbc36] to-[#ff9d36] hover:from-[#ff9d36] hover:to-[#ffbc36] text-black font-medium rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isCreating ? (
                     <>

@@ -99,18 +99,18 @@ export default function UsagePage() {
     <div className="min-h-screen bg-gradient-to-br from-[#0c101c] to-[#111727] text-white">
       <Navbar balance="0" />
       
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between mb-8"
+          className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8"
         >
           <div>
-            <h1 className="text-4xl font-bold mb-2">Usage & Analytics</h1>
-            <p className="text-gray-400">Monitor your API usage and credit consumption</p>
+            <h1 className="text-2xl md:text-4xl font-bold mb-2">Usage & Analytics</h1>
+            <p className="text-sm md:text-base text-gray-400">Monitor your API usage and credit consumption</p>
           </div>
-          <button className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all flex items-center gap-2">
+          <button className="w-full sm:w-auto px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all flex items-center justify-center gap-2">
             <Download className="w-5 h-5" />
             Export Report
           </button>
@@ -120,9 +120,9 @@ export default function UsagePage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-6 mb-8"
+          className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-4 md:p-6 mb-6 md:mb-8"
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium mb-2">Time Range</label>
               <select
@@ -166,24 +166,24 @@ export default function UsagePage() {
         </motion.div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-6 md:mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-6"
+            className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
           >
-            <div className="flex items-center justify-between mb-3">
-              <div className="w-12 h-12 bg-[#ffbc36]/10 rounded-xl flex items-center justify-center">
-                <Activity className="w-6 h-6 text-[#ffbc36]" />
+            <div className="flex items-center justify-between mb-2 md:mb-3">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-[#ffbc36]/10 rounded-xl flex items-center justify-center">
+                <Activity className="w-5 h-5 md:w-6 md:h-6 text-[#ffbc36]" />
               </div>
               <div className={`flex items-center gap-1 text-sm ${totalStats.trend > 0 ? 'text-[#4ade7d]' : 'text-red-400'}`}>
                 {totalStats.trend > 0 ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}
                 {Math.abs(totalStats.trend)}%
               </div>
             </div>
-            <div className="text-sm text-gray-400 mb-1">Total Requests</div>
-            <div className="text-3xl font-bold">{totalStats.requests.toLocaleString()}</div>
+            <div className="text-xs md:text-xs md:text-sm text-gray-400 mb-1">Total Requests</div>
+            <div className="text-xl md:text-xl md:text-3xl font-bold">{totalStats.requests.toLocaleString()}</div>
           </motion.div>
 
           <motion.div
@@ -193,12 +193,12 @@ export default function UsagePage() {
             className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-6"
           >
             <div className="flex items-center justify-between mb-3">
-              <div className="w-12 h-12 bg-[#4ade7d]/10 rounded-xl flex items-center justify-center">
-                <Zap className="w-6 h-6 text-[#4ade7d]" />
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-[#4ade7d]/10 rounded-xl flex items-center justify-center">
+                <Zap className="w-5 h-5 md:w-6 md:h-6 text-[#4ade7d]" />
               </div>
             </div>
-            <div className="text-sm text-gray-400 mb-1">Credits Used</div>
-            <div className="text-3xl font-bold">{totalStats.credits.toLocaleString()}</div>
+            <div className="text-xs md:text-sm text-gray-400 mb-1">Credits Used</div>
+            <div className="text-xl md:text-3xl font-bold">{totalStats.credits.toLocaleString()}</div>
           </motion.div>
 
           <motion.div
@@ -208,12 +208,12 @@ export default function UsagePage() {
             className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-6"
           >
             <div className="flex items-center justify-between mb-3">
-              <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-blue-400" />
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-500/10 rounded-xl flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
               </div>
             </div>
-            <div className="text-sm text-gray-400 mb-1">Avg. Per Day</div>
-            <div className="text-3xl font-bold">{totalStats.avgPerDay}</div>
+            <div className="text-xs md:text-sm text-gray-400 mb-1">Avg. Per Day</div>
+            <div className="text-xl md:text-3xl font-bold">{totalStats.avgPerDay}</div>
           </motion.div>
 
           <motion.div
@@ -223,35 +223,35 @@ export default function UsagePage() {
             className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-6"
           >
             <div className="flex items-center justify-between mb-3">
-              <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center">
-                <Calendar className="w-6 h-6 text-purple-400" />
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-purple-500/10 rounded-xl flex items-center justify-center">
+                <Calendar className="w-5 h-5 md:w-6 md:h-6 text-purple-400" />
               </div>
             </div>
-            <div className="text-sm text-gray-400 mb-1">Time Range</div>
+            <div className="text-xs md:text-sm text-gray-400 mb-1">Time Range</div>
             <div className="text-2xl font-bold">Last 7 Days</div>
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
           {/* Chart */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="lg:col-span-2 bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-6"
+            className="lg:col-span-2 bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
           >
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-4 md:mb-6">
               <div>
-                <h3 className="text-xl font-bold mb-1">Usage Over Time</h3>
-                <p className="text-sm text-gray-400">
+                <h3 className="text-lg md:text-xl font-bold mb-1">Usage Over Time</h3>
+                <p className="text-xs md:text-sm text-gray-400">
                   {selectedMetric === 'requests' ? 'API Requests' : 'Credits Consumed'}
                 </p>
               </div>
-              <BarChart3 className="w-6 h-6 text-[#ffbc36]" />
+              <BarChart3 className="w-5 h-5 md:w-6 md:h-6 text-[#ffbc36]" />
             </div>
 
             {/* Simple Bar Chart */}
-            <div className="h-80 flex items-end justify-between gap-2">
+            <div className="h-60 md:h-80 flex items-end justify-between gap-1 md:gap-2">
               {dailyData.map((data, index) => {
                 const value = selectedMetric === 'requests' ? data.requests : data.credits;
                 const height = (value / maxValue) * 100;
@@ -293,17 +293,17 @@ export default function UsagePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-6"
+            className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
           >
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-4 md:mb-6">
               <div>
-                <h3 className="text-xl font-bold mb-1">Top Models</h3>
-                <p className="text-sm text-gray-400">By usage</p>
+                <h3 className="text-lg md:text-xl font-bold mb-1">Top Models</h3>
+                <p className="text-xs md:text-sm text-gray-400">By usage</p>
               </div>
-              <PieChart className="w-6 h-6 text-[#ffbc36]" />
+              <PieChart className="w-5 h-5 md:w-6 md:h-6 text-[#ffbc36]" />
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {modelUsage.map((model, index) => {
                 const totalRequests = modelUsage.reduce((sum, m) => sum + m.requests, 0);
                 const percentage = ((model.requests / totalRequests) * 100).toFixed(1);

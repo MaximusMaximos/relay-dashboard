@@ -32,6 +32,18 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [previewOpen, setPreviewOpen] = useState<boolean>(false);
 
+  // Lock body scroll when sidebar/preview is open on mobile
+  useEffect(() => {
+    if (sidebarOpen || previewOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [sidebarOpen, previewOpen]);
+
   // Sidebar scroll detection
   useEffect(() => {
     const checkScroll = () => {
@@ -65,13 +77,19 @@ export default function Dashboard() {
   }, [currentModel]);
 
   // Handlers
-  const handleSourceClick = (sourceId: string): void => {
-    setCurrentSource(sourceId);
-    setCurrentModel(null);
-    setFormData({});
-    setOnboardingStep(1);
-    setSidebarOpen(false); // Close mobile sidebar after selection
-  };
+const handleSourceClick = (sourceId: string): void => {
+  setCurrentSource(sourceId);
+  setCurrentModel(null);
+  setFormData({});
+  setOnboardingStep(1);
+  
+  // On mobile, open sidebar when going back to sources (empty sourceId)
+  if (!sourceId && window.innerWidth < 1024) {
+    setSidebarOpen(true);
+  } else {
+    setSidebarOpen(false); // Close sidebar after selecting a source
+  }
+};
 
   const handleModelClick = (model: Model): void => {
     setCurrentModel(model);
@@ -132,10 +150,10 @@ export default function Dashboard() {
   const sourceName: string = sources.find(s => s.id === currentSource)?.name || '';
 
   return (
-    <div className="min-h-screen bg-[#0c101c]">
+    <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-[#0c101c]">
       <Navbar balance={balance} />
 
-      <div className="flex h-[calc(100vh-57px)]">
+      <div className="flex min-h-[calc(100vh-57px)] lg:h-[calc(100vh-57px)] lg:overflow-hidden">
         {/* Desktop Sidebar */}
         <div className="hidden lg:block">
           <Sidebar 
@@ -153,11 +171,11 @@ export default function Dashboard() {
         {/* Mobile Sidebar Overlay */}
         {sidebarOpen && (
           <div 
-            className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+            className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 overflow-hidden"
             onClick={() => setSidebarOpen(false)}
           >
             <div 
-              className="absolute left-0 top-0 bottom-0 w-80 max-w-[85vw]"
+              className="absolute left-0 top-0 bottom-0 w-full max-w-md overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <Sidebar 
@@ -187,18 +205,17 @@ export default function Dashboard() {
           </div>
 
           {/* Mobile Sources Button */}
-          {!currentSource && (
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="lg:hidden fixed bottom-6 left-6 z-30 w-14 h-14 bg-gradient-to-br from-[#ffbc36] to-[#ff9d36] rounded-full flex items-center justify-center shadow-lg shadow-[#ffbc36]/30"
-            >
-              <Menu className="w-6 h-6 text-black" />
-            </button>
-          )}
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="lg:hidden fixed bottom-6 left-6 z-50 w-14 h-14 bg-gradient-to-br from-[#ffbc36] to-[#ff9d36] rounded-full flex items-center justify-center shadow-lg shadow-[#ffbc36]/30"
+          >
+            <Menu className="w-6 h-6 text-black" />
+          </button>
 
           {/* Configuration Panel */}
-          <div className="flex-1 overflow-y-auto p-4 md:p-6 scrollbar-hide z-10">
-            <AnimatePresence mode="wait" key={`${currentSource}-${currentModel?.id || 'no-model'}`}>
+          <div className="flex-1 p-4 md:p-6 z-10 flex flex-col">
+            <div className="flex-1 min-h-0">
+              <AnimatePresence mode="wait" key={`${currentSource}-${currentModel?.id || 'no-model'}`}>
               {!currentSource ? (
                 <motion.div
                   key="empty"
@@ -251,6 +268,7 @@ export default function Dashboard() {
                 />
               )}
             </AnimatePresence>
+            </div>
           </div>
 
           {/* Desktop Preview Panel */}
@@ -268,13 +286,14 @@ export default function Dashboard() {
           )}
 
           {/* Mobile Preview Button */}
-          {currentModel && previewOutput && !isGenerating && (
+          {currentModel && (
             <button
               onClick={() => setPreviewOpen(true)}
-              className="lg:hidden fixed bottom-6 right-6 z-30 px-6 py-3 bg-gradient-to-r from-[#ffbc36] to-[#ff9d36] text-black font-medium rounded-xl shadow-lg shadow-[#ffbc36]/30 flex items-center gap-2"
+              className="lg:hidden fixed bottom-16 right-6 z-30 w-14 h-14 bg-gradient-to-br from-[#ffbc36] to-[#ff9d36] rounded-full flex items-center justify-center shadow-lg shadow-[#ffbc36]/30"
             >
-              <span>View Result</span>
-              <span className="w-2 h-2 bg-black rounded-full animate-pulse"></span>
+              <svg className="w-7 h-7 text-black" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
             </button>
           )}
 

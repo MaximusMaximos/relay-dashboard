@@ -21,14 +21,14 @@ export default function Navbar({ balance }: NavbarProps) {
         <div className="px-4 md:px-8 py-3.5">
           <div className="flex items-center justify-between w-full">
             {/* Logo */}
-            <div className="flex items-center">
+            <Link href="/" className="flex items-center" onClick={(e) => { if (window.innerWidth < 1024) { window.location.href = '/'; e.preventDefault(); } }}>
               <img 
                 src="https://ogpu-site.vercel.app/Images/relay-white.png" 
                 alt="Relay"
                 style={{ height: '28px', width: 'auto' }}
-                className="md:h-8 object-contain opacity-90"
+                className="md:h-8 object-contain opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
               />
-            </div>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-2">
@@ -144,7 +144,7 @@ export default function Navbar({ balance }: NavbarProps) {
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div 
-          className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+          className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
           onClick={() => setMobileMenuOpen(false)}
         >
           <div 

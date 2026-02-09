@@ -49,22 +49,22 @@ export default function ContactPage() {
     <div className="min-h-screen bg-gradient-to-br from-[#0c101c] to-[#111727] text-white">
       <Navbar balance="0" />
       
-      <div className="max-w-5xl mx-auto px-6 py-12">
+      <div className="max-w-5xl mx-auto px-4 md:px-6 py-8 md:py-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#ffbc36]/10 border border-[#ffbc36]/20 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#ffbc36]/10 border border-[#ffbc36]/20 rounded-full mb-4 md:mb-6">
             <MessageSquare className="w-4 h-4 text-[#ffbc36]" />
             <span className="text-sm text-[#ffbc36] font-medium">Get in Touch</span>
           </div>
           
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent px-4">
             Contact Sales Team
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto px-4">
             Interested in enterprise solutions or have questions? Get in touch with our sales team.
           </p>
         </motion.div>
@@ -76,25 +76,25 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-8">
+            <div className="bg-gradient-to-br from-[#1a1f35] to-[#1e2439] border border-white/10 rounded-2xl p-6 md:p-8">
               {isSubmitted ? (
                 <motion.div
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  className="text-center py-12"
+                  className="text-center py-8 md:py-12"
                 >
-                  <div className="w-20 h-20 bg-[#4ade7d]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-10 h-10 text-[#4ade7d]" />
+                  <div className="w-16 h-16 md:w-20 md:h-20 bg-[#4ade7d]/10 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+                    <CheckCircle className="w-8 h-8 md:w-10 md:h-10 text-[#4ade7d]" />
                   </div>
-                  <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
-                  <p className="text-gray-400">
+                  <h3 className="text-xl md:text-2xl font-bold mb-2">Message Sent!</h3>
+                  <p className="text-sm md:text-base text-gray-400">
                     We've received your message and will get back to you shortly.
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
                   <div>
-                    <h2 className="text-2xl font-bold mb-1">Get in Touch</h2>
+                    <h2 className="text-xl md:text-2xl font-bold mb-1">Get in Touch</h2>
                     <p className="text-gray-400 text-sm">Our sales team will respond within 24 hours</p>
                   </div>
 
@@ -194,7 +194,7 @@ export default function ContactPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="mt-12 text-center"
+          className="mt-8 md:mt-12 text-center px-4"
         >
           <p className="text-gray-400 mb-4">
             Need immediate assistance? Reach out to us on X

@@ -23,14 +23,14 @@ export default function Sidebar({
   onSidebarScroll 
 }: SidebarProps) {
   return (
-    <aside className="w-80 bg-[#0a0e1a] border-r border-white/[0.06] relative flex-shrink-0">
+    <aside className="w-full md:w-96 lg:w-80 h-full bg-[#0a0e1a] border-r border-white/[0.06] relative flex-shrink-0">
       <div 
         id="sidebar-scroll"
         className="h-full overflow-y-auto scrollbar-hide"
         style={{ WebkitOverflowScrolling: 'touch' }}
         onScroll={onSidebarScroll}
       >
-        <div className="p-4 pt-16 pb-48">
+        <div className="p-4 pt-20 lg:pt-8 pb-48">
           <div className="text-[10px] font-semibold text-white/40 tracking-wider uppercase mb-3 px-3">
             Sources
           </div>
@@ -111,6 +111,9 @@ export default function Sidebar({
         </div>
       </div>
 
+      {/* Top fade gradient */}
+      <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-[#0a0e1a] to-transparent pointer-events-none" />
+
       {/* Bottom fade gradient */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0e1a] via-[#0a0e1a]/95 to-transparent pointer-events-none" />
       
@@ -122,7 +125,7 @@ export default function Sidebar({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             onClick={onScrollUp}
-            className="absolute top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-white/[0.08] hover:bg-white/[0.12] backdrop-blur-xl rounded-full flex items-center justify-center transition-all border border-white/[0.06] shadow-lg z-10"
+            className="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-8 bg-white/[0.08] hover:bg-white/[0.12] backdrop-blur-xl rounded-full flex items-center justify-center transition-all border border-white/[0.06] shadow-lg z-10"
           >
             <svg className="w-4 h-4 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 15l7-7 7 7" />
