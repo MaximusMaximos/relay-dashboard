@@ -1,8 +1,8 @@
-import { FormData, ParamConfig } from '../types';
+import { FormData } from '../types';
 
 interface FormFieldProps {
   fieldKey: string;
-  param: ParamConfig;
+  param: any;
   formData: FormData;
   setFormData: (data: FormData) => void;
 }
