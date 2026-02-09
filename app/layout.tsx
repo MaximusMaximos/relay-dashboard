@@ -8,80 +8,20 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "OGPU | A Datacenter Without Walls",
-  description:
-    "OGPU routes AI workloads across global GPU capacity pools without splitting tasks. Faster, cheaper and more reliable compute for inference, training, RAG and agents.",
-
-  // ★ MAIN DOMAIN
-  metadataBase: new URL("https://ogpunetwork.com"),
-  alternates: { canonical: "https://ogpunetwork.com" },
-
-  // FAVICONS
+  title: "Relay | AI Dashboard Demo",
+  description: "Access 23+ AI models through a unified dashboard. Demo platform for AI inference and generation.",
+  
+  metadataBase: new URL("https://relay-dashboard.vercel.app"),
+  
   icons: {
-    icon: [
-      { url: "/favicon/favicon.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon/favicon.png", sizes: "192x192", type: "image/png" },
-      { url: "/favicon/favicon.png", sizes: "512x512", type: "image/png" },
-    ],
-    apple: [{ url: "/favicon/favicon.png", sizes: "180x180" }],
-    shortcut: "/favicon/favicon.png",
+    icon: "/favicon.ico",
   },
-
-  // OG + TWITTER SHARE RICH PREVIEW
+  
   openGraph: {
-    title: "OGPU | A Datacenter Without Walls",
-    description:
-      "The routing layer for AI compute. Execute workloads across clouds, data centers and independent GPU operators with automatic failover and job integrity.",
-    url: "https://ogpunetwork.com",
-    siteName: "OGPU Network",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    title: "Relay | AI Dashboard Demo",
+    description: "Access 23+ AI models through a unified dashboard",
+    siteName: "Relay",
   },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "OGPU | A Datacenter Without Walls",
-    description: "Run AI workloads globally with automatic routing and 60–80% lower cost.",
-    images: ["/og-image.jpg"],
-  },
-
-  // 🔍 SEO + Relevancy Signals
-  keywords: [
-    "OGPU",
-    "OpenGPU",
-    "GPU compute network",
-    "AI compute routing",
-    "Decentralized GPUs",
-    "GPU cloud alternative",
-    "RAG compute",
-    "H100 compute",
-    "A100 compute",
-    "global AI workload routing",
-    "distributed inference",
-    "LLM hosting GPUs",
-    "AI model runtime",
-    "AI training GPUs",
-    "multi-region GPU compute",
-    "agent compute infrastructure"
-  ],
-
-  // 🟢 GOOGLE + STANDARD ROBOTS DIRECTIVES (PATCHED)
-  robots: {
-    index: true,
-    follow: true,
-    "max-snippet": -1,
-    "max-image-preview": "large",
-    "max-video-preview": -1,
-
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-snippet": -1,
-      "max-image-preview": "large",
-      "max-video-preview": -1,
-    },
-  },
-
-  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

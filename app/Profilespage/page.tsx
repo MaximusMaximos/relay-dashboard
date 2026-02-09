@@ -50,6 +50,14 @@ export default function ProfilePage() {
     }, 1500);
   };
 
+  const handleLogout = () => {
+    // Add your logout logic here
+    // For now, redirect to home
+    if (confirm('Are you sure you want to logout?')) {
+      window.location.href = '/';
+    }
+  };
+
   const tabs = [
     { id: 'account', label: 'Account', icon: User },
     { id: 'security', label: 'Security', icon: Shield },
@@ -115,7 +123,10 @@ export default function ProfilePage() {
               </div>
 
               {/* Logout Button */}
-              <button className="w-full mt-6 flex items-center justify-center gap-2 px-4 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl transition-all">
+              <button 
+                onClick={handleLogout}
+                className="w-full mt-6 flex items-center justify-center gap-2 px-4 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl transition-all"
+              >
                 <LogOut className="w-4 h-4" />
                 <span className="font-medium">Logout</span>
               </button>

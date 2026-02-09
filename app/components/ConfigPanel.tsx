@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import FormField from './FormField';
-import { Model, FormData } from '../../types';
+import { Model, FormData } from '../types';
 
 interface ConfigPanelProps {
   currentModel: Model;
@@ -24,7 +24,7 @@ export default function ConfigPanel({
   setFormData, 
   isGenerating, 
   onGenerate 
-}) {
+}: ConfigPanelProps) {
   return (
     <motion.div
       key="config"
@@ -146,18 +146,52 @@ export default function ConfigPanel({
               >
                 <h3 className="text-xs font-semibold text-white/70 uppercase tracking-wide mb-3">Tips</h3>
                 <ul className="space-y-2 text-xs text-white/50 leading-relaxed">
-                  <li className="flex gap-2">
-                    <span className="text-[#ffbc36] flex-shrink-0">•</span>
-                    <span>Be specific in your prompts</span>
-                  </li>
-                  <li className="flex gap-2">
-                    <span className="text-[#ffbc36] flex-shrink-0">•</span>
-                    <span>Higher steps = better quality</span>
-                  </li>
-                  <li className="flex gap-2">
-                    <span className="text-[#ffbc36] flex-shrink-0">•</span>
-                    <span>Use negative prompts effectively</span>
-                  </li>
+                  {currentModel.previewType === 'image' || currentModel.previewType === 'video' ? (
+                    <>
+                      <li className="flex gap-2">
+                        <span className="text-[#ffbc36] flex-shrink-0">•</span>
+                        <span>Be specific in your prompts</span>
+                      </li>
+                      <li className="flex gap-2">
+                        <span className="text-[#ffbc36] flex-shrink-0">•</span>
+                        <span>Higher steps = better quality</span>
+                      </li>
+                      <li className="flex gap-2">
+                        <span className="text-[#ffbc36] flex-shrink-0">•</span>
+                        <span>Use negative prompts effectively</span>
+                      </li>
+                    </>
+                  ) : currentModel.previewType === 'text' || currentModel.previewType === 'audio' ? (
+                    <>
+                      <li className="flex gap-2">
+                        <span className="text-[#ffbc36] flex-shrink-0">•</span>
+                        <span>Clear input = better output</span>
+                      </li>
+                      <li className="flex gap-2">
+                        <span className="text-[#ffbc36] flex-shrink-0">•</span>
+                        <span>Check audio quality before upload</span>
+                      </li>
+                      <li className="flex gap-2">
+                        <span className="text-[#ffbc36] flex-shrink-0">•</span>
+                        <span>Longer audio = more processing time</span>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="flex gap-2">
+                        <span className="text-[#ffbc36] flex-shrink-0">•</span>
+                        <span>Review parameters before generating</span>
+                      </li>
+                      <li className="flex gap-2">
+                        <span className="text-[#ffbc36] flex-shrink-0">•</span>
+                        <span>Start with default settings</span>
+                      </li>
+                      <li className="flex gap-2">
+                        <span className="text-[#ffbc36] flex-shrink-0">•</span>
+                        <span>Adjust based on results</span>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </motion.div>
 

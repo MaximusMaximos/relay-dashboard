@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Model } from '../../types';
 
@@ -17,7 +18,21 @@ export default function ModelsGrid({
   onModelClick, 
   onboardingStep, 
   setOnboardingStep 
-}) {
+}: ModelsGridProps) {
+  const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
+
+  const handleVideoHover = (modelId: string, isHovering: boolean) => {
+    const video = videoRefs.current[modelId];
+    if (video) {
+      if (isHovering) {
+        video.play();
+      } else {
+        video.pause();
+        video.currentTime = 0;
+      }
+    }
+  };
+
   return (
     <motion.div
       key="models"
@@ -47,14 +62,16 @@ export default function ModelsGrid({
               }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
               onClick={() => onModelClick(model)}
+              onMouseEnter={() => model.previewType === 'video' && handleVideoHover(model.id, true)}
+              onMouseLeave={() => model.previewType === 'video' && handleVideoHover(model.id, false)}
               className="group flex-shrink-0 w-52 rounded-xl backdrop-blur-xl transition-all duration-300 bg-white/[0.04] hover:bg-white/[0.06] border border-white/[0.06] hover:border-white/[0.1] shadow-sm"
             >
               <div className="p-4">
                 <div className="w-full h-28 rounded-lg mb-3 relative overflow-hidden bg-[#0a0e1a] border border-white/[0.06]">
                   {model.previewType === 'video' ? (
                     <video
+                      ref={(el) => videoRefs.current[model.id] = el}
                       src={model.preview}
-                      autoPlay
                       loop
                       muted
                       playsInline
