@@ -70,7 +70,7 @@ export default function ModelsGrid({
                 <div className="w-full h-28 rounded-lg mb-3 relative overflow-hidden bg-[#0a0e1a] border border-white/[0.06]">
                   {model.previewType === 'video' ? (
                     <video
-                      ref={(el) => videoRefs.current[model.id] = el}
+                      ref={(el) => { videoRefs.current[model.id] = el; }}
                       src={model.preview}
                       loop
                       muted
