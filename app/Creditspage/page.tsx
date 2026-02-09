@@ -88,7 +88,7 @@ export default function CreditsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0c101c] to-[#111727] text-white">
       {/* Navbar */}
-      <Navbar />
+      <Navbar balance="0" />
       
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 pt-12 pb-8">
