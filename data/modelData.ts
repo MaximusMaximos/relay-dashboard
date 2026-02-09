@@ -1,4 +1,4 @@
-import { Model } from '../types';
+import { Model } from '@/app/types';
 
 export const modelData: Record<string, Model[]> = {
   automatic1111: [
