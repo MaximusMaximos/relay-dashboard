@@ -1,16 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { sources } from '@/data/sources';
-
-interface Source {
-  id: string;
-  name: string;
-  emoji: string;
-  icon?: string;
-  desc?: string;
-  features?: string[];
-  count?: number;
-  price?: string;
-}
+import { Source } from '../types';
 
 interface SidebarProps {
   sources: Source[];
