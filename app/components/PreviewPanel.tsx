@@ -50,13 +50,13 @@ export default function PreviewPanel({
       </div>
 
       {/* Preview Area */}
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="flex-1 overflow-y-auto p-6 scrollbar-hide">
         {previewView === 'preview' ? (
           <div className="space-y-6">
             {/* Output Display */}
-            <div className="aspect-video bg-white/[0.02] border border-white/[0.06] rounded-xl overflow-hidden">
+            <div className="min-h-[300px] bg-white/[0.02] border border-white/[0.06] rounded-xl overflow-hidden">
               {isGenerating ? (
-                <div className="w-full h-full flex items-center justify-center">
+                <div className="w-full h-full flex items-center justify-center min-h-[300px]">
                   <div className="text-center">
                     <div className="w-12 h-12 border-4 border-[#ffbc36]/30 border-t-[#ffbc36] rounded-full animate-spin mx-auto mb-4" />
                     <div className="text-sm text-white/60">Generating...</div>
@@ -68,14 +68,14 @@ export default function PreviewPanel({
                     <img 
                       src={previewOutput.url} 
                       alt="Generated output"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   )}
                   {previewOutput.type === 'video' && (
                     <video 
                       src={previewOutput.url}
                       controls
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   )}
                   {previewOutput.type === 'text' && (
@@ -93,7 +93,7 @@ export default function PreviewPanel({
                       <img 
                         src={currentModel.preview} 
                         alt={currentModel.name}
-                        className="w-full h-full object-cover opacity-50"
+                        className="w-full h-full object-contain opacity-50"
                       />
                     )}
                     {currentModel.previewType === 'video' && (
@@ -102,7 +102,7 @@ export default function PreviewPanel({
                         autoPlay
                         muted
                         loop
-                        className="w-full h-full object-cover opacity-50"
+                        className="w-full h-full object-contain opacity-50"
                       />
                     )}
                     {currentModel.previewType === 'text' && (

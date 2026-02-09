@@ -93,7 +93,7 @@ export default function ModelsGrid({
       <div className="relative">
         <div 
           id="models-scroll"
-          className="flex md:grid md:grid-cols-2 lg:flex gap-3 overflow-x-auto md:overflow-x-visible pb-4 pt-2 scrollbar-hide scroll-smooth"
+          className="flex md:grid md:grid-cols-2 lg:flex gap-3 overflow-x-auto pb-4 pt-2 scrollbar-hide scroll-smooth"
         >
           {models?.map((model, index) => (
             <motion.button
@@ -121,17 +121,18 @@ export default function ModelsGrid({
                       loop
                       muted
                       playsInline
-                      className="w-full h-full object-cover"
+                      preload="metadata"
+                      className="w-full h-full object-contain"
                     />
                   ) : model.previewType === 'image' ? (
                     <img
                       src={model.preview}
                       alt={model.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-5xl font-light text-white/20 tracking-tighter">{model.preview}</span>
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-white/[0.03] to-white/[0.01]">
+                      <span className="text-4xl md:text-5xl font-light text-white/40 tracking-tighter">{model.preview}</span>
                     </div>
                   )}
                 </div>
@@ -150,6 +151,7 @@ export default function ModelsGrid({
           ))}
         </div>
         
+        {/* Scroll Arrows - Only show on desktop when more than 4 models */}
         {models?.length > 4 && (
           <>
             <button
@@ -157,9 +159,9 @@ export default function ModelsGrid({
                 const container = document.getElementById('models-scroll');
                 container?.scrollBy({ left: -220, behavior: 'smooth' });
               }}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-8 h-8 bg-white/[0.08] hover:bg-white/[0.12] backdrop-blur-xl rounded-full flex items-center justify-center transition-all border border-white/[0.06] shadow-lg z-10"
+              className="hidden lg:flex absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/[0.08] hover:bg-white/[0.12] backdrop-blur-xl rounded-full items-center justify-center transition-all border border-white/[0.06] shadow-lg z-10"
             >
-              <svg className="w-4 h-4 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
@@ -168,12 +170,16 @@ export default function ModelsGrid({
                 const container = document.getElementById('models-scroll');
                 container?.scrollBy({ left: 220, behavior: 'smooth' });
               }}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-8 h-8 bg-white/[0.08] hover:bg-white/[0.12] backdrop-blur-xl rounded-full flex items-center justify-center transition-all border border-white/[0.06] shadow-lg z-10"
+              className="hidden lg:flex absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/[0.08] hover:bg-white/[0.12] backdrop-blur-xl rounded-full items-center justify-center transition-all border border-white/[0.06] shadow-lg z-10"
             >
-              <svg className="w-4 h-4 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>
             </button>
+            
+            {/* Fade gradients on desktop */}
+            <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#0c101c] via-[#0c101c]/95 to-transparent pointer-events-none" />
+            <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#0c101c] via-[#0c101c]/95 to-transparent pointer-events-none" />
           </>
         )}
       </div>

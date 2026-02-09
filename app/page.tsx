@@ -204,17 +204,8 @@ const handleSourceClick = (sourceId: string): void => {
              />
           </div>
 
-          {/* Mobile Sources Button */}
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="lg:hidden fixed bottom-6 left-6 z-50 w-14 h-14 bg-gradient-to-br from-[#ffbc36] to-[#ff9d36] rounded-full flex items-center justify-center shadow-lg shadow-[#ffbc36]/30"
-          >
-            <Menu className="w-6 h-6 text-black" />
-          </button>
-
           {/* Configuration Panel */}
-          <div className="flex-1 p-4 md:p-6 z-10 flex flex-col">
-            <div className="flex-1 min-h-0">
+          <div className="flex-1 p-4 md:p-6 z-10 overflow-x-hidden">
               <AnimatePresence mode="wait" key={`${currentSource}-${currentModel?.id || 'no-model'}`}>
               {!currentSource ? (
                 <motion.div
@@ -230,15 +221,19 @@ const handleSourceClick = (sourceId: string): void => {
                       opacity: [0.4, 0.6, 0.4]
                     }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    className="text-5xl mb-4"
+                    className="text-6xl md:text-7xl mb-6"
                   >
                     ⚡
                   </motion.div>
-                  <div className="text-lg font-medium text-white/90 mb-1">Select a source</div>
-                  <div className="text-sm text-white/40 mb-4">Choose from the sidebar to get started</div>
+                  <h1 className="text-2xl md:text-4xl font-bold text-white mb-3 bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
+                    Select a source
+                  </h1>
+                  <p className="text-base md:text-lg text-white/50 mb-8 max-w-md text-center px-4">
+                    Choose from the sidebar to get started with AI generation
+                  </p>
                   <button
                     onClick={() => setSidebarOpen(true)}
-                    className="lg:hidden px-6 py-3 bg-gradient-to-r from-[#ffbc36] to-[#ff9d36] text-black font-medium rounded-xl"
+                    className="lg:hidden px-8 py-4 bg-gradient-to-r from-[#ffbc36] to-[#ff9d36] hover:from-[#ff9d36] hover:to-[#ffbc36] text-black font-semibold rounded-xl shadow-lg shadow-[#ffbc36]/20 transition-all hover:shadow-xl hover:shadow-[#ffbc36]/30 hover:scale-105"
                   >
                     Browse Sources
                   </button>
@@ -268,7 +263,6 @@ const handleSourceClick = (sourceId: string): void => {
                 />
               )}
             </AnimatePresence>
-            </div>
           </div>
 
           {/* Desktop Preview Panel */}
@@ -291,9 +285,16 @@ const handleSourceClick = (sourceId: string): void => {
               onClick={() => setPreviewOpen(true)}
               className="lg:hidden fixed bottom-16 right-6 z-30 w-14 h-14 bg-gradient-to-br from-[#ffbc36] to-[#ff9d36] rounded-full flex items-center justify-center shadow-lg shadow-[#ffbc36]/30"
             >
-              <svg className="w-7 h-7 text-black" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
+              {previewOutput && !isGenerating ? (
+                <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              )}
             </button>
           )}
 
