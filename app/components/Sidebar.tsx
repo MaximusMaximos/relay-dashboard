@@ -23,10 +23,11 @@ export default function Sidebar({
   onSidebarScroll 
 }: SidebarProps) {
   return (
-    <aside className="w-80 bg-[#0a0e1a] border-r border-white/[0.06] relative overflow-hidden flex-shrink-0">
+    <aside className="w-80 bg-[#0a0e1a] border-r border-white/[0.06] relative flex-shrink-0">
       <div 
         id="sidebar-scroll"
         className="h-full overflow-y-auto scrollbar-hide"
+        style={{ WebkitOverflowScrolling: 'touch' }}
         onScroll={onSidebarScroll}
       >
         <div className="p-4 pt-16 pb-48">
