@@ -1,6 +1,17 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { sources } from '@/data/sources';
 
+interface Source {
+  id: string;
+  name: string;
+  emoji: string;
+  icon?: string;
+  desc?: string;
+  features?: string[];
+  count?: number;
+  price?: string;
+}
+
 interface SidebarProps {
   sources: Source[];
   currentSource: string | null;
@@ -73,7 +84,7 @@ export default function Sidebar({
                   </div>
                 </div>
                 <div className="flex items-center gap-1.5 ml-9 mb-1.5 flex-wrap">
-                  {source.features.map((feature, i) => (
+                  {source.features?.map((feature, i) => (
                     <span key={i} className={`text-[9px] px-1.5 py-0.5 rounded ${
                       currentSource === source.id 
                         ? 'bg-[#ffbc36]/20 text-[#ffbc36]' 

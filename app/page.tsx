@@ -51,10 +51,10 @@ export default function Dashboard() {
   // Set form defaults when model changes
   useEffect(() => {
     if (currentModel) {
-      const defaults = {};
-      Object.entries(currentModel.params).forEach(([key, param]) => {
-        if (param.default) defaults[key] = param.default;
-      });
+      const defaults: FormData = {};
+Object.entries(currentModel.params).forEach(([key, param]) => {
+  if (param.default) defaults[key] = param.default;
+});
       setFormData(defaults);
     } else {
       setFormData({});
@@ -98,14 +98,16 @@ export default function Dashboard() {
   };
 
   const handleGenerate = (): void => {
-    setIsGenerating(true);
-    // Simulate generation
-    setTimeout(() => {
-      setIsGenerating(false);
-      setPreviewOutput({
-        type: currentModel.previewType,
-        url: currentModel.preview
-      });
+  if (!currentModel) return;
+  
+  setIsGenerating(true);
+  // Simulate generation
+  setTimeout(() => {
+    setIsGenerating(false);
+    setPreviewOutput({
+      type: currentModel.previewType,
+      url: currentModel.preview
+    });
       setGenerationHistory([
         {
           id: generationHistory.length + 1,
