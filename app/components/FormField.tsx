@@ -18,7 +18,7 @@ export default function FormField({ fieldKey, param, formData, setFormData }: Fo
   if (param.type === 'toggle') {
     return (
       <div className="flex gap-2">
-        {param.options?.map((option) => (
+        {param.options?.map((option: string) => (
           <button
             key={option}
             onClick={() => handleChange(option)}
@@ -137,7 +137,7 @@ export default function FormField({ fieldKey, param, formData, setFormData }: Fo
         onChange={(e) => handleChange(e.target.value)}
         className="w-full px-4 py-2.5 bg-white/[0.05] border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#ffbc36]/40 transition-all cursor-pointer"
       >
-        {param.options?.map((option) => (
+        {param.options?.map((option: string) => (
           <option key={option} value={option} className="bg-[#111727]">
             {option}
           </option>
