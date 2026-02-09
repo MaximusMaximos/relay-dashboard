@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Model } from '../../types';
+import { Model } from '../types';
 
 interface ModelsGridProps {
   models: Model[];
