@@ -29,7 +29,7 @@ export default function Sidebar({
         className="h-full overflow-y-auto scrollbar-hide"
         onScroll={onSidebarScroll}
       >
-        <div className="p-4 pb-32">
+        <div className="p-4 pt-16 pb-48">
           <div className="text-[10px] font-semibold text-white/40 tracking-wider uppercase mb-3 px-3">
             Sources
           </div>

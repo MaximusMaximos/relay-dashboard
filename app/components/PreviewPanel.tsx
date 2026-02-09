@@ -19,7 +19,7 @@ export default function PreviewPanel({
   generationHistory 
 }: PreviewPanelProps) {
   return (
-    <div className="w-[400px] h-full flex flex-col">
+    <div className="w-full lg:w-[400px] h-full flex flex-col">
       {/* Header */}
       <div className="p-6 border-b border-white/[0.06]">
         <div className="flex items-center justify-between mb-4">

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 import { modelData } from '@/data/modelData';
 import { sources } from '@/data/sources';
 import Navbar from './components/Navbar';
@@ -28,6 +29,8 @@ export default function Dashboard() {
   const [previewOutput, setPreviewOutput] = useState<PreviewOutput | null>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [onboardingStep, setOnboardingStep] = useState<number>(1);
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const [previewOpen, setPreviewOpen] = useState<boolean>(false);
 
   // Sidebar scroll detection
   useEffect(() => {
@@ -52,9 +55,9 @@ export default function Dashboard() {
   useEffect(() => {
     if (currentModel) {
       const defaults: FormData = {};
-Object.entries(currentModel.params).forEach(([key, param]) => {
-  if (param.default) defaults[key] = param.default;
-});
+      Object.entries(currentModel.params).forEach(([key, param]) => {
+        if (param.default) defaults[key] = param.default;
+      });
       setFormData(defaults);
     } else {
       setFormData({});
@@ -67,6 +70,7 @@ Object.entries(currentModel.params).forEach(([key, param]) => {
     setCurrentModel(null);
     setFormData({});
     setOnboardingStep(1);
+    setSidebarOpen(false); // Close mobile sidebar after selection
   };
 
   const handleModelClick = (model: Model): void => {
@@ -98,16 +102,16 @@ Object.entries(currentModel.params).forEach(([key, param]) => {
   };
 
   const handleGenerate = (): void => {
-  if (!currentModel) return;
-  
-  setIsGenerating(true);
-  // Simulate generation
-  setTimeout(() => {
-    setIsGenerating(false);
-    setPreviewOutput({
-      type: currentModel.previewType,
-      url: currentModel.preview
-    });
+    if (!currentModel) return;
+    
+    setIsGenerating(true);
+    // Simulate generation
+    setTimeout(() => {
+      setIsGenerating(false);
+      setPreviewOutput({
+        type: currentModel.previewType,
+        url: currentModel.preview
+      });
       setGenerationHistory([
         {
           id: generationHistory.length + 1,
@@ -117,6 +121,10 @@ Object.entries(currentModel.params).forEach(([key, param]) => {
         },
         ...generationHistory
       ]);
+      // Auto-open preview on mobile after generation
+      if (window.innerWidth < 1024) {
+        setPreviewOpen(true);
+      }
     }, 2000);
   };
 
@@ -128,19 +136,46 @@ Object.entries(currentModel.params).forEach(([key, param]) => {
       <Navbar balance={balance} />
 
       <div className="flex h-[calc(100vh-57px)]">
-        <Sidebar 
-          sources={sources}
-          currentSource={currentSource}
-          onSourceClick={handleSourceClick}
-          canScrollDown={canScrollDown}
-          canScrollUp={canScrollUp}
-          onScrollDown={handleScrollDown}
-          onScrollUp={handleScrollUp}
-          onSidebarScroll={handleSidebarScroll}
-        />
+        {/* Desktop Sidebar */}
+        <div className="hidden lg:block">
+          <Sidebar 
+            sources={sources}
+            currentSource={currentSource}
+            onSourceClick={handleSourceClick}
+            canScrollDown={canScrollDown}
+            canScrollUp={canScrollUp}
+            onScrollDown={handleScrollDown}
+            onScrollUp={handleScrollUp}
+            onSidebarScroll={handleSidebarScroll}
+          />
+        </div>
+
+        {/* Mobile Sidebar Overlay */}
+        {sidebarOpen && (
+          <div 
+            className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+            onClick={() => setSidebarOpen(false)}
+          >
+            <div 
+              className="absolute left-0 top-0 bottom-0 w-80 max-w-[85vw]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Sidebar 
+                sources={sources}
+                currentSource={currentSource}
+                onSourceClick={handleSourceClick}
+                canScrollDown={canScrollDown}
+                canScrollUp={canScrollUp}
+                onScrollDown={handleScrollDown}
+                onScrollUp={handleScrollUp}
+                onSidebarScroll={handleSidebarScroll}
+              />
+            </div>
+          </div>
+        )}
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-hidden bg-gradient-to-br from-[#0c101c] to-[#111727] flex relative">
+        <main className="flex-1 overflow-hidden bg-gradient-to-br from-[#0c101c] to-[#111727] flex flex-col lg:flex-row relative">
           
           {/* Faded Background Logo/Image */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden opacity-[0.03]">
@@ -151,8 +186,18 @@ Object.entries(currentModel.params).forEach(([key, param]) => {
              />
           </div>
 
+          {/* Mobile Sources Button */}
+          {!currentSource && (
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="lg:hidden fixed bottom-6 left-6 z-30 w-14 h-14 bg-gradient-to-br from-[#ffbc36] to-[#ff9d36] rounded-full flex items-center justify-center shadow-lg shadow-[#ffbc36]/30"
+            >
+              <Menu className="w-6 h-6 text-black" />
+            </button>
+          )}
+
           {/* Configuration Panel */}
-          <div className="flex-1 overflow-y-auto p-6 scrollbar-hide z-10">
+          <div className="flex-1 overflow-y-auto p-4 md:p-6 scrollbar-hide z-10">
             <AnimatePresence mode="wait" key={`${currentSource}-${currentModel?.id || 'no-model'}`}>
               {!currentSource ? (
                 <motion.div
@@ -160,7 +205,7 @@ Object.entries(currentModel.params).forEach(([key, param]) => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="flex flex-col items-center justify-center h-full"
+                  className="flex flex-col items-center justify-center h-full min-h-[50vh]"
                 >
                   <motion.div
                     animate={{ 
@@ -173,7 +218,13 @@ Object.entries(currentModel.params).forEach(([key, param]) => {
                     ⚡
                   </motion.div>
                   <div className="text-lg font-medium text-white/90 mb-1">Select a source</div>
-                  <div className="text-sm text-white/40">Choose from the sidebar to get started</div>
+                  <div className="text-sm text-white/40 mb-4">Choose from the sidebar to get started</div>
+                  <button
+                    onClick={() => setSidebarOpen(true)}
+                    className="lg:hidden px-6 py-3 bg-gradient-to-r from-[#ffbc36] to-[#ff9d36] text-black font-medium rounded-xl"
+                  >
+                    Browse Sources
+                  </button>
                 </motion.div>
               ) : !currentModel ? (
                 <ModelsGrid 
@@ -181,6 +232,7 @@ Object.entries(currentModel.params).forEach(([key, param]) => {
                   sourceName={sourceName}
                   currentSource={currentSource}
                   onModelClick={handleModelClick}
+                  onSourceClick={handleSourceClick}
                   onboardingStep={onboardingStep}
                   setOnboardingStep={setOnboardingStep}
                 />
@@ -195,14 +247,15 @@ Object.entries(currentModel.params).forEach(([key, param]) => {
                   setFormData={setFormData}
                   isGenerating={isGenerating}
                   onGenerate={handleGenerate}
+                  onBack={() => setCurrentModel(null)}
                 />
               )}
             </AnimatePresence>
           </div>
 
-          {/* Preview Panel */}
+          {/* Desktop Preview Panel */}
           {currentModel && (
-            <div className="z-20 border-l border-white/[0.06] bg-[#0a0e1a]/50 backdrop-blur-md">
+            <div className="hidden lg:block z-20 border-l border-white/[0.06] bg-[#0a0e1a]/50 backdrop-blur-md">
               <PreviewPanel 
                 currentModel={currentModel}
                 previewView={previewView}
@@ -211,6 +264,55 @@ Object.entries(currentModel.params).forEach(([key, param]) => {
                 isGenerating={isGenerating}
                 generationHistory={generationHistory}
               />
+            </div>
+          )}
+
+          {/* Mobile Preview Button */}
+          {currentModel && previewOutput && !isGenerating && (
+            <button
+              onClick={() => setPreviewOpen(true)}
+              className="lg:hidden fixed bottom-6 right-6 z-30 px-6 py-3 bg-gradient-to-r from-[#ffbc36] to-[#ff9d36] text-black font-medium rounded-xl shadow-lg shadow-[#ffbc36]/30 flex items-center gap-2"
+            >
+              <span>View Result</span>
+              <span className="w-2 h-2 bg-black rounded-full animate-pulse"></span>
+            </button>
+          )}
+
+          {/* Mobile Preview Modal */}
+          {previewOpen && currentModel && (
+            <div 
+              className="lg:hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end"
+              onClick={() => setPreviewOpen(false)}
+            >
+              <div 
+                className="w-full bg-[#0a0e1a] rounded-t-3xl max-h-[85vh] overflow-hidden flex flex-col"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Drag Handle */}
+                <div className="p-4 flex justify-center border-b border-white/[0.06]">
+                  <div className="w-12 h-1 bg-white/20 rounded-full"></div>
+                </div>
+                
+                {/* Preview Content */}
+                <div className="flex-1 overflow-y-auto">
+                  <PreviewPanel 
+                    currentModel={currentModel}
+                    previewView={previewView}
+                    setPreviewView={setPreviewView}
+                    previewOutput={previewOutput}
+                    isGenerating={isGenerating}
+                    generationHistory={generationHistory}
+                  />
+                </div>
+
+                {/* Close Button */}
+                <button
+                  onClick={() => setPreviewOpen(false)}
+                  className="m-6 px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl transition-all"
+                >
+                  Close Preview
+                </button>
+              </div>
             </div>
           )}
         </main>

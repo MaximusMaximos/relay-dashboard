@@ -12,6 +12,7 @@ interface ConfigPanelProps {
   setFormData: (data: FormData) => void;
   isGenerating: boolean;
   onGenerate: () => void;
+  onBack?: () => void;
 }
 
 export default function ConfigPanel({ 
@@ -23,7 +24,8 @@ export default function ConfigPanel({
   formData, 
   setFormData, 
   isGenerating, 
-  onGenerate 
+  onGenerate,
+  onBack
 }: ConfigPanelProps) {
   return (
     <motion.div
@@ -34,10 +36,22 @@ export default function ConfigPanel({
       className="h-full flex flex-col"
     >
       {/* Header with Model Info and Mode */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="text-xl font-bold text-white mb-1">{currentModel.name}</h2>
-          <p className="text-sm text-white/50">{currentModel.desc}</p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div className="flex items-center gap-3">
+          {onBack && (
+            <button
+              onClick={onBack}
+              className="p-2 hover:bg-white/[0.05] rounded-lg transition-all text-white/60 hover:text-white flex-shrink-0"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
+          <div>
+            <h2 className="text-lg md:text-xl font-bold text-white mb-1">{currentModel.name}</h2>
+            <p className="text-xs md:text-sm text-white/50">{currentModel.desc}</p>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 text-xs text-white/50">
@@ -89,9 +103,9 @@ export default function ConfigPanel({
       {/* Configuration Form */}
       <div className="flex-1 overflow-y-auto scrollbar-hide">
         {configView === 'configure' ? (
-          <div className="grid grid-cols-3 gap-6 pb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pb-6">
             {/* Left: Form Fields */}
-            <div className="col-span-2 space-y-5">
+            <div className="lg:col-span-2 space-y-5">
               {Object.entries(currentModel.params).map(([key, param]) => (
                 <div key={key}>
                   <label className="block text-xs font-semibold text-white/70 mb-2 tracking-wide uppercase">
@@ -253,8 +267,8 @@ export default function ConfigPanel({
       </div>
 
       {/* Generate Button */}
-      <div className="pt-6 border-t border-white/[0.08] flex items-center justify-between">
-        <div>
+      <div className="pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+        <div className="text-center sm:text-left">
           <div className="text-xs text-white/40 mb-1">Estimated cost</div>
           <div className="text-xl font-bold text-white">{currentModel.price}</div>
         </div>
@@ -263,7 +277,7 @@ export default function ConfigPanel({
           whileTap={{ scale: 0.98 }}
           onClick={onGenerate}
           disabled={isGenerating}
-          className="px-8 py-3 bg-[#ffbc36] hover:bg-[#ffbc36]/90 text-[#0c101c] rounded-lg font-bold text-sm tracking-tight transition-all shadow-lg shadow-[#ffbc36]/20 hover:shadow-xl hover:shadow-[#ffbc36]/30 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full sm:w-auto px-8 py-3 bg-[#ffbc36] hover:bg-[#ffbc36]/90 text-[#0c101c] rounded-lg font-bold text-sm tracking-tight transition-all shadow-lg shadow-[#ffbc36]/20 hover:shadow-xl hover:shadow-[#ffbc36]/30 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isGenerating ? 'Generating...' : 'Generate'}
         </motion.button>

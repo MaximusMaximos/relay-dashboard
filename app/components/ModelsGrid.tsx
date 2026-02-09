@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Model } from '../types';
 
@@ -7,6 +7,7 @@ interface ModelsGridProps {
   sourceName: string;
   currentSource: string;
   onModelClick: (model: Model) => void;
+  onSourceClick: (sourceId: string) => void;
   onboardingStep: number;
   setOnboardingStep: (step: number) => void;
 }
@@ -15,15 +16,48 @@ export default function ModelsGrid({
   models, 
   sourceName, 
   currentSource,
-  onModelClick, 
+  onModelClick,
+  onSourceClick,
   onboardingStep, 
   setOnboardingStep 
 }: ModelsGridProps) {
   const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    // Create intersection observer to play videos when centered
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+          // Check if video is more than 50% visible
+          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            video.play();
+          } else {
+            video.pause();
+            video.currentTime = 0;
+          }
+        });
+      },
+      {
+        threshold: [0, 0.5, 1],
+        rootMargin: '-20% 0px -20% 0px' // Only trigger when in center 60% of viewport
+      }
+    );
+
+    // Observe all videos
+    Object.values(videoRefs.current).forEach((video) => {
+      if (video) observerRef.current?.observe(video);
+    });
+
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, [models]);
 
   const handleVideoHover = (modelId: string, isHovering: boolean) => {
     const video = videoRefs.current[modelId];
-    if (video) {
+    if (video && window.innerWidth >= 1024) { // Only on desktop
       if (isHovering) {
         video.play();
       } else {
@@ -40,15 +74,26 @@ export default function ModelsGrid({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-white mb-2">Select a Model</h2>
-        <p className="text-sm text-white/50">Choose from available {sourceName} models</p>
+      {/* Header with Back Button */}
+      <div className="mb-6 flex items-center gap-3">
+        <button
+          onClick={() => onSourceClick('')}
+          className="p-2 hover:bg-white/[0.05] rounded-lg transition-all text-white/60 hover:text-white flex-shrink-0"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <div className="flex-1 min-w-0">
+          <h2 className="text-xl md:text-2xl font-bold text-white mb-1">Select a Model</h2>
+          <p className="text-sm text-white/50">Choose from available {sourceName} models</p>
+        </div>
       </div>
       
       <div className="relative">
         <div 
           id="models-scroll"
-          className="flex gap-3 overflow-x-auto pb-4 scrollbar-hide scroll-smooth"
+          className="flex md:grid md:grid-cols-2 lg:flex gap-3 overflow-x-auto md:overflow-x-visible pb-4 pt-2 scrollbar-hide scroll-smooth"
         >
           {models?.map((model, index) => (
             <motion.button
@@ -61,10 +106,11 @@ export default function ModelsGrid({
                 ease: [0.16, 1, 0.3, 1]
               }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => onModelClick(model)}
               onMouseEnter={() => model.previewType === 'video' && handleVideoHover(model.id, true)}
               onMouseLeave={() => model.previewType === 'video' && handleVideoHover(model.id, false)}
-              className="group flex-shrink-0 w-52 rounded-xl backdrop-blur-xl transition-all duration-300 bg-white/[0.04] hover:bg-white/[0.06] border border-white/[0.06] hover:border-white/[0.1] shadow-sm"
+              className="group flex-shrink-0 w-52 md:w-full lg:w-52 rounded-xl backdrop-blur-xl transition-all duration-300 bg-white/[0.04] hover:bg-white/[0.06] active:bg-white/[0.08] border border-white/[0.06] hover:border-white/[0.1] shadow-sm"
             >
               <div className="p-4">
                 <div className="w-full h-28 rounded-lg mb-3 relative overflow-hidden bg-[#0a0e1a] border border-white/[0.06]">
@@ -140,7 +186,7 @@ export default function ModelsGrid({
         className="mt-6 max-w-3xl mx-auto"
       >
         {/* Step Indicator */}
-        <div className="grid grid-cols-3 gap-3 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
           {[
             { num: 1, title: 'Select Model', desc: 'Choose the best model for your needs' },
             { num: 2, title: 'Configure', desc: 'Set parameters and quality' },
@@ -149,7 +195,7 @@ export default function ModelsGrid({
             <button
               key={step.num}
               onClick={() => setOnboardingStep(step.num)}
-              className={`text-left rounded-lg p-3 transition-all ${
+              className={`text-left rounded-lg p-3 md:p-4 transition-all ${
                 onboardingStep === step.num
                   ? 'bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.04]'
                   : 'bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.03]'
