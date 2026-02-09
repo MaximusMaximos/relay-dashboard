@@ -25,14 +25,17 @@ export default function ModelsGrid({
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
+    // Only use intersection observer on mobile/tablet (below desktop breakpoint)
+    if (window.innerWidth >= 1024) return; // Skip on desktop - use hover instead
+    
     // Create intersection observer to play videos when centered
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const video = entry.target as HTMLVideoElement;
-          // Check if video is more than 50% visible
-          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-            video.play();
+          // Only play when video is MORE than 80% visible and actually in view
+          if (entry.isIntersecting && entry.intersectionRatio > 0.8) {
+            video.play().catch(() => {}); // Catch autoplay errors
           } else {
             video.pause();
             video.currentTime = 0;
@@ -40,8 +43,9 @@ export default function ModelsGrid({
         });
       },
       {
-        threshold: [0, 0.5, 1],
-        rootMargin: '-20% 0px -20% 0px' // Only trigger when in center 60% of viewport
+        threshold: [0, 0.5, 0.8, 1],
+        rootMargin: '-10% 0px -10% 0px', // Tighter margin - only center 80% of viewport
+        root: document.getElementById('models-scroll') // Use the scroll container as root
       }
     );
 
