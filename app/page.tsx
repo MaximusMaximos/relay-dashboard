@@ -217,13 +217,16 @@ const handleSourceClick = (sourceId: string): void => {
                 >
                   <motion.div
                     animate={{ 
-                      y: [0, -8, 0],
-                      opacity: [0.4, 0.6, 0.4]
+                      y: [0, -12, 0],
                     }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    className="text-6xl md:text-7xl mb-6"
+                    className="mb-8"
                   >
-                    ⚡
+                    <img 
+                      src="/Images/relay-logo.png" 
+                      alt="Relay"
+                      className="h-16 md:h-20 w-auto opacity-60"
+                    />
                   </motion.div>
                   <h1 className="text-2xl md:text-4xl font-bold text-white mb-3 bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
                     Select a source

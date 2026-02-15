@@ -109,12 +109,12 @@ export default function ModelsGrid({
                 duration: 0.4,
                 ease: [0.16, 1, 0.3, 1]
               }}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.98 }}
               onClick={() => onModelClick(model)}
               onMouseEnter={() => model.previewType === 'video' && handleVideoHover(model.id, true)}
               onMouseLeave={() => model.previewType === 'video' && handleVideoHover(model.id, false)}
-              className="group flex-shrink-0 w-52 md:w-full lg:w-52 rounded-xl backdrop-blur-xl transition-all duration-300 bg-white/[0.04] hover:bg-white/[0.06] active:bg-white/[0.08] border border-white/[0.06] hover:border-white/[0.1] shadow-sm"
+              className="group flex-shrink-0 w-52 md:w-full lg:w-52 rounded-xl backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 bg-white/[0.04] hover:bg-white/[0.07] active:bg-white/[0.08] border border-white/[0.08] hover:border-white/[0.15] shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3),inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.1)]"
             >
               <div className="p-4">
                 <div className="w-full h-28 rounded-lg mb-3 relative overflow-hidden bg-[#0a0e1a] border border-white/[0.06]">

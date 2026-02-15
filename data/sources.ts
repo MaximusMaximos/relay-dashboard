@@ -4,7 +4,7 @@ export const sources: Source[] = [
   { 
     id: 'audio', 
     name: 'AUDIO', 
-    icon: '🎙️', 
+    icon: '/Images/audio-source.png', 
     count: 2, 
     price: '$0.005',
     desc: 'Speech-to-text & text-to-speech',
@@ -13,7 +13,7 @@ export const sources: Source[] = [
   { 
     id: 'automatic1111', 
     name: 'AUTOMATIC1111', 
-    icon: '🎨', 
+    icon: '/Images/stable-diffusion-icon.png',
     count: 3, 
     price: '$0.008',
     desc: 'Stable Diffusion art models',
@@ -22,7 +22,7 @@ export const sources: Source[] = [
   { 
     id: 'image', 
     name: 'IMAGE', 
-    icon: '🖼️', 
+    icon: '/Images/image-source.png', 
     count: 6, 
     price: '$0.05',
     desc: 'Professional image generation',
@@ -31,7 +31,7 @@ export const sources: Source[] = [
   { 
     id: 'ollama', 
     name: 'OLLAMA', 
-    icon: '💬', 
+    icon: '/Images/ollama-icon.png', 
     count: 4, 
     price: '$0.0004',
     desc: 'Open-source language models',
@@ -40,7 +40,7 @@ export const sources: Source[] = [
   { 
     id: 'video', 
     name: 'VIDEO', 
-    icon: '🎬', 
+    icon: '/Images/video-source.png', 
     count: 7, 
     price: '$0.12-0.25',
     desc: 'Text & image to video',
@@ -49,7 +49,7 @@ export const sources: Source[] = [
   { 
     id: 'vllm', 
     name: 'VLLM', 
-    icon: '⚡', 
+    icon: '/Images/vllm-icon.png', 
     count: 1, 
     price: '$0.0004',
     desc: 'High-performance inference',

@@ -23,7 +23,7 @@ export default function Sidebar({
   onSidebarScroll 
 }: SidebarProps) {
   return (
-    <aside className="w-full md:w-96 lg:w-80 h-full bg-[#0a0e1a] border-r border-white/[0.06] relative flex-shrink-0">
+    <aside className="w-full lg:w-80 h-full bg-[#0a0e1a] border-r border-white/[0.06] relative flex-shrink-0">
       <div 
         id="sidebar-scroll"
         className="h-full overflow-y-auto scrollbar-hide"
@@ -55,10 +55,14 @@ export default function Sidebar({
                 }`}
               >
                 <div className="flex items-start gap-3 mb-2">
-                  <div className={`text-xl transition-transform group-hover:scale-110 ${
+                  <div className={`transition-transform group-hover:scale-110 ${
                     currentSource === source.id ? 'scale-110' : ''
-                  }`}>
-                    {source.icon}
+                  } ${source.icon.startsWith('/') ? 'w-6 h-6' : 'text-xl'}`}>
+                    {source.icon.startsWith('/') ? (
+                      <img src={source.icon} alt={source.name} className="w-full h-full object-contain" />
+                    ) : (
+                      source.icon
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className={`text-[13px] font-semibold tracking-tight mb-0.5 ${

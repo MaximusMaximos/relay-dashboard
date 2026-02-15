@@ -34,61 +34,56 @@ export default function Navbar({ balance }: NavbarProps) {
             <div className="hidden lg:flex items-center gap-2">
               <Link 
                 href="/" 
-                className={`px-4 py-2 text-sm font-medium rounded-lg flex items-center gap-2 transition-all ${
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
                   isActive('/') 
                     ? 'text-white bg-white/[0.08]' 
                     : 'text-white/60 hover:text-white hover:bg-white/[0.05]'
                 }`}
               >
-                <span className="text-base">⚡</span>
                 Playground
               </Link>
               
               <Link 
                 href="/Profilespage" 
-                className={`px-4 py-2 text-sm font-medium rounded-lg flex items-center gap-2 transition-all ${
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
                   isActive('/Profilespage') 
                     ? 'text-white bg-white/[0.08]' 
                     : 'text-white/60 hover:text-white hover:bg-white/[0.05]'
                 }`}
               >
-                <span className="text-base">👤</span>
                 Profile
               </Link>
 
               <Link 
                 href="/Keyspage" 
-                className={`px-4 py-2 text-sm font-medium rounded-lg flex items-center gap-2 transition-all ${
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
                   isActive('/Keyspage') 
                     ? 'text-white bg-white/[0.08]' 
                     : 'text-white/60 hover:text-white hover:bg-white/[0.05]'
                 }`}
               >
-                <span className="text-base">🔑</span>
                 Keys
               </Link>
 
               <Link 
                 href="/Usagepage" 
-                className={`px-4 py-2 text-sm font-medium rounded-lg flex items-center gap-2 transition-all ${
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
                   isActive('/Usagepage') 
                     ? 'text-white bg-white/[0.08]' 
                     : 'text-white/60 hover:text-white hover:bg-white/[0.05]'
                 }`}
               >
-                <span className="text-base">📊</span>
                 Usage
               </Link>
 
               <Link 
                 href="/Creditspage" 
-                className={`px-4 py-2 text-sm font-medium rounded-lg flex items-center gap-2 transition-all ${
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
                   isActive('/Creditspage') 
                     ? 'text-white bg-white/[0.08]' 
                     : 'text-white/60 hover:text-white hover:bg-white/[0.05]'
                 }`}
               >
-                <span className="text-base">⚡</span>
                 Credits
               </Link>
 
@@ -96,21 +91,19 @@ export default function Navbar({ balance }: NavbarProps) {
                 href="https://opengpu-network.gitbook.io/relay/" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 text-sm font-medium text-white/60 hover:text-white hover:bg-white/[0.05] rounded-lg transition-all flex items-center gap-2"
+                className="px-4 py-2 text-sm font-medium text-white/60 hover:text-white hover:bg-white/[0.05] rounded-lg transition-all"
               >
-                <span className="text-base">📚</span>
                 Docs
               </a>
               
               <Link 
                 href="/Contactpage" 
-                className={`px-4 py-2 text-sm font-medium rounded-lg flex items-center gap-2 transition-all ${
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
                   isActive('/Contactpage') 
                     ? 'text-white bg-white/[0.08]' 
                     : 'text-white/60 hover:text-white hover:bg-white/[0.05]'
                 }`}
               >
-                <span className="text-base">💬</span>
                 Contact
               </Link>
             </div>
@@ -189,7 +182,7 @@ export default function Navbar({ balance }: NavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-lg">👤</span>
+                  <span className="text-lg"></span>
                   <span>Profile</span>
                 </div>
               </Link>
@@ -204,7 +197,7 @@ export default function Navbar({ balance }: NavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-lg">🔑</span>
+                  <span className="text-lg"></span>
                   <span>API Keys</span>
                 </div>
               </Link>
@@ -219,7 +212,7 @@ export default function Navbar({ balance }: NavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-lg">📊</span>
+                  <span className="text-lg"></span>
                   <span>Usage</span>
                 </div>
               </Link>
@@ -234,7 +227,7 @@ export default function Navbar({ balance }: NavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-lg">⚡</span>
+                  <span className="text-lg"></span>
                   <span>Credits</span>
                 </div>
               </Link>
@@ -247,7 +240,7 @@ export default function Navbar({ balance }: NavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-lg">📚</span>
+                  <span className="text-lg"></span>
                   <span>Documentation</span>
                 </div>
               </a>
@@ -262,7 +255,7 @@ export default function Navbar({ balance }: NavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-lg">💬</span>
+                  <span className="text-lg"></span>
                   <span>Contact Sales</span>
                 </div>
               </Link>
