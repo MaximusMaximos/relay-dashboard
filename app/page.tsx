@@ -225,14 +225,15 @@ const handleSourceClick = (sourceId: string): void => {
                     <img 
                       src="/Images/relay-logo.png" 
                       alt="Relay"
-                      className="h-16 md:h-20 w-auto opacity-60"
+                      className="h-16 md:h-20 w-auto"
                     />
                   </motion.div>
                   <h1 className="text-2xl md:text-4xl font-bold text-white mb-3 bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
                     Select a source
                   </h1>
                   <p className="text-base md:text-lg text-white/50 mb-8 max-w-md text-center px-4">
-                    Choose from the sidebar to get started with AI generation
+                    <span className="lg:hidden">Click below to browse available AI models</span>
+                    <span className="hidden lg:inline">Choose from the sidebar to get started with AI generation</span>
                   </p>
                   <button
                     onClick={() => setSidebarOpen(true)}
